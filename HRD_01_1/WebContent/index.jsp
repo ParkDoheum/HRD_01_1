@@ -14,7 +14,7 @@
 <body>
 	<div>
 		<a href="preg">물품 등록</a>
-		<a href="">입고</a>
+		<a href="regpim">입고</a>
 		<a href="">출고</a>
 		<a href="">물품 조회</a>
 		<a href="">입고 조회</a>
