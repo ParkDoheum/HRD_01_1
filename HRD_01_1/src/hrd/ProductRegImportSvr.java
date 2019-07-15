@@ -22,7 +22,6 @@ public class ProductRegImportSvr extends HttpServlet {
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String p_no = request.getParameter("p_no");
@@ -30,6 +29,14 @@ public class ProductRegImportSvr extends HttpServlet {
 		
 		System.out.println("p_no : " + p_no);
 		System.out.println("i_cnt : " + i_cnt);
+		
+		ProductVo vo = new ProductVo();
+		vo.setP_no(Integer.parseInt(p_no));
+		vo.setI_cnt(Integer.parseInt(i_cnt));
+		
+		DAO.regIm(vo);
+		DAO.productUpdCnt(vo);
+		
 	}
 
 }

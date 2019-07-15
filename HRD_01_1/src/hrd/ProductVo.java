@@ -1,11 +1,20 @@
 package hrd;
 
 public class ProductVo {
+	private String flag = "";
 	private int i_no;
 	private int p_no;
 	private String p_name;
 	private int i_cnt;
 	private String i_date;
+	
+	
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 	public int getI_no() {
 		return i_no;
 	}

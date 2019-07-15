@@ -91,6 +91,58 @@ public class DAO {
     	
     	return list;
     }
+    
+    //입고 등록
+    public static void regIm(ProductVo vo) {
+    	Connection con = null;
+    	PreparedStatement ps = null;
+    	
+    	String sql = " INSERT INTO i_import "
+    			+ " (i_no, p_no, i_cnt) "
+    			+ " select nvl(max(i_no), 0) + 1, ?, ? from i_import ";
+    	
+    	try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, vo.getP_no());
+			ps.setInt(2,  vo.getI_cnt());
+			ps.execute();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+    }
+    
+    //재고 수량 변경
+    public static void productUpdCnt(ProductVo vo) {
+    	Connection con = null;
+    	PreparedStatement ps = null;
+    	String flag = " + ";
+    	if(vo.getFlag().equals("ex")) {
+    		flag = " - ";
+    	}    	
+    	
+    	String sql = " update i_product"
+    			+ " set p_cnt = p_cnt " + flag + " ? "
+    			+ " where p_no = ? ";
+    	
+    	try {
+			con = getCon();
+			ps = con.prepareStatement(sql);			
+			ps.setInt(1, vo.getI_cnt());
+			ps.setInt(2, vo.getP_no());
+			ps.execute();
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+    	
+    }
+    
 }
 
 
