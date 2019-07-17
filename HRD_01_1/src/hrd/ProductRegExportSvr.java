@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ProductRegExportSvr extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		request.setAttribute("list", DAO.selProductList());
+		request.setAttribute("list", DAO.selProductList("p_name"));
 		request.setAttribute("title", "출고");
 		request.setAttribute("view", "productRegEx.jsp");		
 		request.getRequestDispatcher("index.jsp").forward(request, response);

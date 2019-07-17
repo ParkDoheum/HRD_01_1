@@ -7,8 +7,15 @@ public class ProductVo {
 	private int p_no;
 	private String p_name;
 	private int i_cnt;
+	private int p_cnt;
 	private String i_date;
-		
+			
+	public int getP_cnt() {
+		return p_cnt;
+	}
+	public void setP_cnt(int p_cnt) {
+		this.p_cnt = p_cnt;
+	}
 	public String getTableNm() {
 		return tableNm;
 	}

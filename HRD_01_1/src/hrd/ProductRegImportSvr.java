@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ProductRegImportSvr extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		List<ProductVo> list = DAO.selProductList();
+		List<ProductVo> list = DAO.selProductList("p_name");
 		
 		request.setAttribute("list", list);		
 		request.setAttribute("title", "입고");

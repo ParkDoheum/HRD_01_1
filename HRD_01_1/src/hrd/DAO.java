@@ -36,8 +36,7 @@ public class DAO {
 			}
     	}
     }
-    
-    
+        
     //물품 등록
     public static void productReg(ProductVo vo) {    	
     	Connection con = null;
@@ -60,15 +59,16 @@ public class DAO {
     		close(con, ps, null);
     	}    	
     }
-    
+        
     //제품 리스트 가져오기
-    public static List<ProductVo> selProductList() {
+    public static List<ProductVo> selProductList(String orderby) {
     	List<ProductVo> list = new ArrayList();
     	Connection con = null;
     	PreparedStatement ps = null;
     	ResultSet rs = null;
     	
-    	String sql = " SELECT * FROM i_product ";
+    	String sql = " SELECT p_name, p_no, p_cnt, TO_CHAR(p_regdate, 'YYYY-MM-DD') as p_regdate "
+    			+ " FROM i_product order by " + orderby;
     	
     	try {
 			con = getCon();
@@ -78,7 +78,9 @@ public class DAO {
 			while(rs.next()) {
 				ProductVo vo = new ProductVo();
 				vo.setP_name(rs.getString("p_name"));
-				vo.setP_no(rs.getInt("p_no"));
+				vo.setP_no(rs.getInt("p_no"));				
+				vo.setP_cnt(rs.getInt("p_cnt"));
+				vo.setI_date(rs.getString("p_regdate"));
 				list.add(vo);
 			}
 			
