@@ -3,6 +3,11 @@
 <%
 	String title = (String)request.getAttribute("title");
 	String view = (String)request.getAttribute("view");
+	
+	if(title == null) {
+		title = "홈";
+		view = "home.jsp";
+	}
 %>    
 <!DOCTYPE html>
 <html>
@@ -15,10 +20,10 @@
 	<div>
 		<a href="preg">물품 등록</a>
 		<a href="regpim">입고</a>
-		<a href="">출고</a>
-		<a href="">물품 조회</a>
+		<a href="regpex">출고</a>
+		<a href="readpd">물품 조회</a>
 		<a href="readpim">입고 조회</a>
-		<a href="">출고 조회</a>
+		<a href="readpex">출고 조회</a>
 		<a href="index.jsp">홈으로</a>
 	</div>
 	<div>
