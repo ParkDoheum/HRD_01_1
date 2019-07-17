@@ -18,18 +18,16 @@ public class ProductReadImportSvr extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String sql = " SELECT a.i_no, B.P_name, a.i_cnt, a.i_date "
-				+ " FROM i_import A "
-				+ " INNER JOIN i_product B "
-				+ " ON A.p_no = B.p_no ";
-		
-		
-		
-		
-		//request.setAttribute("list", list);
+		request.setAttribute("list", DAO.selectImportList());
 		request.setAttribute("title", "입고 조회");
-		request.setAttribute("view", "productIm.jsp");
+		request.setAttribute("view", "productReadIm.jsp");
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 }
+
+
+
+
+
+

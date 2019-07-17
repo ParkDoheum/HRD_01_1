@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//입고 처리
+
 @WebServlet("/regpim")
 public class ProductRegImportSvr extends HttpServlet {
 
@@ -36,6 +38,8 @@ public class ProductRegImportSvr extends HttpServlet {
 		
 		DAO.regIm(vo);
 		DAO.productUpdCnt(vo);
+		
+		response.sendRedirect("readpim");
 		
 	}
 

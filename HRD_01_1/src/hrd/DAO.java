@@ -115,6 +115,48 @@ public class DAO {
 		}
     }
     
+    public static List<ProductVo> selectImportList() {
+    	List<ProductVo> list = new ArrayList<ProductVo>();
+    	
+    	Connection con = null;
+    	PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	
+    	String sql = " SELECT A.i_no, B.p_name, A.i_cnt, A.i_date "
+    			+ " FROM i_import A "
+    			+ " INNER JOIN i_product B "
+    			+ " ON A.p_no = B.p_no "
+    			+ " order by A.i_date DESC ";
+    	
+    	try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				int i_no = rs.getInt("i_no");
+				int i_cnt = rs.getInt("i_cnt");
+				
+				System.out.println("i_no : " + i_no);
+				System.out.println("i_cnt : " + i_cnt);
+				
+				ProductVo vo = new ProductVo();
+				
+				vo.setI_no(rs.getInt("i_no"));
+				vo.setP_name(rs.getString("p_name"));
+				vo.setI_cnt(rs.getInt("i_cnt"));
+				vo.setI_date(rs.getString("i_date"));
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+    	
+    	return list;
+    }
+    
     //재고 수량 변경
     public static void productUpdCnt(ProductVo vo) {
     	Connection con = null;

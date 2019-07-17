@@ -17,7 +17,7 @@
 		<a href="regpim">입고</a>
 		<a href="">출고</a>
 		<a href="">물품 조회</a>
-		<a href="">입고 조회</a>
+		<a href="readpim">입고 조회</a>
 		<a href="">출고 조회</a>
 		<a href="index.jsp">홈으로</a>
 	</div>
