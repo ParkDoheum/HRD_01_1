@@ -92,18 +92,27 @@ public class DAO {
     	return list;
     }
     
-    //입고 등록
-    public static void regIm(ProductVo vo) {
+    //입고/출고 등록
+    public static void regImEx(ProductVo vo) {
     	Connection con = null;
     	PreparedStatement ps = null;
     	
-    	String sql = " INSERT INTO i_import "
-    			+ " (i_no, p_no, i_cnt) "
-    			+ " select nvl(max(i_no), 0) + 1, ?, ? from i_import ";
+    	String no = "i_no";
+    	String cnt = "i_cnt";
+    	
+    	if(vo.getTableNm().equals("i_export")) {
+    		no = "e_no";
+    		cnt = "e_cnt";
+    	}
+    	
+    	String sql = " INSERT INTO  " + vo.getTableNm()
+    			+ " (" + no + ", p_no, " + cnt + ") "
+    			+ " select nvl(max( " + no + "), 0) + 1, ?, ? from " + vo.getTableNm();
     	
     	try {
 			con = getCon();
 			ps = con.prepareStatement(sql);
+			ps.setString(1, vo.getTableNm());			
 			ps.setInt(1, vo.getP_no());
 			ps.setInt(2,  vo.getI_cnt());
 			ps.execute();
@@ -113,11 +122,11 @@ public class DAO {
 		} finally {
 			close(con, ps, null);
 		}
-    }
+    }   
     
-    public static List<ProductVo> selectImportList() {
-    	List<ProductVo> list = new ArrayList<ProductVo>();
-    	
+    //입고 조회
+    public static List<ProductVo> selectImportList() {    	
+    	List<ProductVo> list = new ArrayList<ProductVo>();    	
     	Connection con = null;
     	PreparedStatement ps = null;
     	ResultSet rs = null;
@@ -146,6 +155,41 @@ public class DAO {
 				vo.setP_name(rs.getString("p_name"));
 				vo.setI_cnt(rs.getInt("i_cnt"));
 				vo.setI_date(rs.getString("i_date"));
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+    	
+    	return list;
+    }
+    
+  //출고 조회
+    public static List<ProductVo> selectExportList() {    	
+    	List<ProductVo> list = new ArrayList<ProductVo>();    	
+    	Connection con = null;
+    	PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	
+    	String sql = " SELECT A.e_no, B.p_name, A.e_cnt, A.e_date "
+    			+ " FROM i_export A "
+    			+ " INNER JOIN i_product B "
+    			+ " ON A.p_no = B.p_no "
+    			+ " order by A.e_date DESC ";
+    	
+    	try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {								
+				ProductVo vo = new ProductVo();				
+				vo.setI_no(rs.getInt("e_no"));
+				vo.setP_name(rs.getString("p_name"));
+				vo.setI_cnt(rs.getInt("e_cnt"));
+				vo.setI_date(rs.getString("e_date"));
 				list.add(vo);
 			}
 		} catch (Exception e) {

@@ -36,7 +36,8 @@ public class ProductRegImportSvr extends HttpServlet {
 		vo.setP_no(Integer.parseInt(p_no));
 		vo.setI_cnt(Integer.parseInt(i_cnt));
 		
-		DAO.regIm(vo);
+		vo.setTableNm("i_import");
+		DAO.regImEx(vo);
 		DAO.productUpdCnt(vo);
 		
 		response.sendRedirect("readpim");

@@ -1,14 +1,20 @@
 package hrd;
 
 public class ProductVo {
+	private String tableNm;
 	private String flag = "";
 	private int i_no;
 	private int p_no;
 	private String p_name;
 	private int i_cnt;
 	private String i_date;
-	
-	
+		
+	public String getTableNm() {
+		return tableNm;
+	}
+	public void setTableNm(String tableNm) {
+		this.tableNm = tableNm;
+	}
 	public String getFlag() {
 		return flag;
 	}

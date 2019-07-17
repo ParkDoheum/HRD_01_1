@@ -32,11 +32,15 @@ public class ProductRegExportSvr extends HttpServlet {
 		ProductVo vo = new ProductVo();
 		vo.setP_no(Integer.parseInt(p_no));
 		vo.setI_cnt(Integer.parseInt(i_cnt));
+
+
+		vo.setTableNm("i_export");
+		DAO.regImEx(vo);
 		
-		DAO.regIm(vo);
+		vo.setFlag("ex");
 		DAO.productUpdCnt(vo);
 		
-		response.sendRedirect("readpim");
+		response.sendRedirect("readpex");
 		
 	}
 
