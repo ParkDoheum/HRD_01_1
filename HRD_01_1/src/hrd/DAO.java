@@ -231,6 +231,85 @@ public class DAO {
     	
     }
     
+    //총판매갯수    
+    public static int totalSalesCnt() {
+    	int result = 0;
+    	Connection con = null;
+    	PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	
+    	String sql = " SELECT sum(e_cnt) FROM i_export ";
+    	try {
+    		
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+    	
+    	return result;
+    }
+    
+    //총 판매금액
+    public static int totalSalesPrice() {
+    	int result = 0;
+    	Connection con = null;
+    	PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	
+    	String sql = " SELECT sum(A.e_cnt * B.p_price) "
+    			+ " FROM i_export A "
+    			+ " INNER JOIN i_product B "
+    			+ " ON A.p_no = B.p_no ";
+    			
+    	try {
+    		
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				result = (int) rs.getInt(1);
+				
+				System.out.println("result : " + result);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+    	
+    	return result;    
+    }
+    
+    
+    /*
+
+
+SELECT 
+    A.p_no, 
+    A.p_name, 
+    A.p_price, 
+    nvl(B.cnt, 0) as cnt, 
+    nvl(A.p_price * B.cnt, 0) as sales_price
+FROM i_product A
+LEFT JOIN
+( 
+    SELECT p_no, sum(e_cnt) as cnt
+    FROM i_export
+    group by p_no    
+) B
+ON A.p_no = B.p_no
+ORDER BY p_price asc, p_name asc;
+
+     */
 }
 
 

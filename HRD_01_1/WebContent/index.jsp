@@ -24,6 +24,7 @@
 		<a href="readpd">물품 조회</a>
 		<a href="readpim">입고 조회</a>
 		<a href="readpex">출고 조회</a>
+		<a href="psales">매출</a>
 		<a href="index.jsp">홈으로</a>
 	</div>
 	<div>
